@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Requestion Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">Requestion Dashboard</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">Pending Requisitions</h3>
+        <p class="text-3xl font-bold text-blue-600">{{ pending_requisitions }}</p>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">Quick Actions</h3>
+        <div class="mt-4">
+            <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block mb-2">Create New Requisition</a>
+            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mb-2">View All Requisitions</a>
+        </div>
+    </div>
+</div>
+<div class="mt-8">
+    <h3 class="text-2xl font-bold mb-4">Your Recent Requisitions</h3>
+    <table class="w-full bg-white shadow rounded-lg">
+        <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <th class="py-3 px-6 text-left">Requisition Number</th>
+                <th class="py-3 px-6 text-left">Date</th>
+                <th class="py-3 px-6 text-left">Status</th>
+                <th class="py-3 px-6 text-left">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+            {% for req in user_requisitions %}
+            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="py-3 px-6 text-left whitespace-nowrap">{{ req.requisition_number }}</td>
+                <td class="py-3 px-6 text-left">{{ req.created_at|date:"M d, Y" }}</td>
+                <td class="py-3 px-6 text-left">
+                    <span class="bg-{{ req.status|yesno:'green,yellow,red' }}-200 text-{{ req.status|yesno:'green,yellow,red' }}-600 py-1 px-3 rounded-full text-xs">
+                        {{ req.status|title }}
+                    </span>
+                </td>
+                <td class="py-3 px-6 text-left">
+                    <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-xs">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

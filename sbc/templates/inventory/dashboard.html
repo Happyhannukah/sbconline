@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">Inventory Dashboard</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">Total Inventory Items</h3>
+        <p class="text-3xl font-bold text-blue-600">{{ total_items }}</p>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">Quick Actions</h3>
+        <div class="mt-4">
+            <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block mb-2">Add New Item</a>
+            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mb-2">Generate Report</a>
+        </div>
+    </div>
+</div>
+<div<div class="mt-8">
+    <h3 class="text-2xl font-bold mb-4">Low Stock Items</h3>
+    <table class="w-full bg-white shadow rounded-lg">
+        <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <th class="py-3 px-6 text-left">Item Name</th>
+                <th class="py-3 px-6 text-left">SKU</th>
+                <th class="py-3 px-6 text-left">Current Quantity</th>
+                <th class="py-3 px-6 text-left">Reorder Level</th>
+                <th class="py-3 px-6 text-left">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+            {% for item in low_stock_items %}
+            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="py-3 px-6 text-left whitespace-nowrap">{{ item.name }}</td>
+                <td class="py-3 px-6 text-left">{{ item.sku }}</td>
+                <td class="py-3 px-6 text-left">{{ item.quantity }}</td>
+                <td class="py-3 px-6 text-left">{{ item.reorder_level }}</td>
+                <td class="py-3 px-6 text-left">
+                    <a href="#" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded text-xs">Reorder</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
